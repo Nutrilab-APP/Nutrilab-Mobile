@@ -46,8 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_marginBottom="15dp"
-        android:elevation="8dp"
         android:background="@drawable/custom_background2"
+        android:elevation="8dp"
         android:padding="10dp">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -153,42 +153,66 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/white"
+        android:elevation="12dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+
+            <EditText
+                android:id="@+id/edit_food"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="What you eat today?"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="10dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btn_send"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/send"
+                app:shapeAppearanceOverlay="@style/roundedImageView" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <Button
+        android:id="@+id/btn_camera"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/custom_background3"
-        android:backgroundTint="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingHorizontal="10dp">
+        android:hint="✨ Try using AI camera 📷"
+        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="6dp"
+        android:textColorHint="@color/white"
+        android:background="@drawable/button_background"
+        android:elevation="8dp"
+        android:drawablePadding="10dp" />
 
-        <EditText
-            android:id="@+id/edit_food"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Write What You Eat Here"
-            android:padding="10dp" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/btn_send"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/send"
-            app:shapeAppearanceOverlay="@style/roundedImageView" />
-    </LinearLayout>
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_nutrition"
-        android:padding="20dp"
-        android:scrollbars="none"
         android:layout_marginHorizontal="2dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/shape_nutrition"
         android:elevation="8dp"
-        android:layout_marginBottom="15dp">
+        android:padding="20dp"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -206,11 +230,11 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:progress="50"
-                    android:max="100"
                     android:layout_marginHorizontal="4dp"
                     android:background="@drawable/circle_shape_progress"
                     android:indeterminate="false"
+                    android:max="100"
+                    android:progress="50"
                     android:progressDrawable="@drawable/circular_progress_bar"
                     android:textAlignment="center" />
 
@@ -218,6 +242,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/txt_progress_calories"
                         android:layout_width="wrap_content"
@@ -225,6 +250,7 @@
                         android:fontFamily="@font/nregular"
                         android:text="100/"
                         android:textSize="10sp" />
+
                     <TextView
                         android:id="@+id/txt_total_calories"
                         android:layout_width="wrap_content"
@@ -263,6 +289,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/txt_progress_carbo"
                         android:layout_width="wrap_content"
@@ -270,6 +297,7 @@
                         android:fontFamily="@font/nregular"
                         android:text="100/"
                         android:textSize="10sp" />
+
                     <TextView
                         android:id="@+id/txt_total_carbo"
                         android:layout_width="wrap_content"
@@ -307,6 +335,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/txt_progress_protein"
                         android:layout_width="wrap_content"
@@ -314,6 +343,7 @@
                         android:fontFamily="@font/nregular"
                         android:text="100/"
                         android:textSize="10sp" />
+
                     <TextView
                         android:id="@+id/txt_total_protein"
                         android:layout_width="wrap_content"
@@ -351,6 +381,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/txt_progress_fat"
                         android:layout_width="wrap_content"
@@ -358,6 +389,7 @@
                         android:fontFamily="@font/nregular"
                         android:text="100/"
                         android:textSize="10sp" />
+
                     <TextView
                         android:id="@+id/txt_total_fat"
                         android:layout_width="wrap_content"
@@ -395,6 +427,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/txt_progress_sugar"
                         android:layout_width="wrap_content"
@@ -402,6 +435,7 @@
                         android:fontFamily="@font/nregular"
                         android:text="100/"
                         android:textSize="10sp" />
+
                     <TextView
                         android:id="@+id/txt_total_sugar"
                         android:layout_width="wrap_content"
@@ -444,18 +478,20 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="4dp">
+
             <RelativeLayout
                 android:id="@+id/layout_rekomendasi1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:elevation="4dp"
+
                 android:background="@drawable/custom_background3"
+                android:elevation="4dp"
                 android:padding="10dp">
 
                 <TextView
@@ -465,11 +501,12 @@
                     android:fontFamily="@font/nbold"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
+
                 <TextView
                     android:id="@+id/food_info1"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/layout_calories1"
@@ -630,13 +667,14 @@
                 </LinearLayout>
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_rekomendasi2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:elevation="4dp"
                 android:background="@drawable/custom_background3"
+                android:elevation="4dp"
                 android:padding="10dp">
 
                 <TextView
@@ -646,11 +684,12 @@
                     android:fontFamily="@font/nbold"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
+
                 <TextView
                     android:id="@+id/food_info2"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/layout_calories2"
@@ -811,13 +850,14 @@
                 </LinearLayout>
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_rekomendasi3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:elevation="4dp"
                 android:background="@drawable/custom_background3"
+                android:elevation="4dp"
                 android:padding="10dp">
 
                 <TextView
@@ -827,11 +867,12 @@
                     android:fontFamily="@font/nbold"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
+
                 <TextView
                     android:id="@+id/food_info3"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/layout_calories3"

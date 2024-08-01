@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment homeFragment = new HomeFragment();
     private HistoryFragment historyFragment = new HistoryFragment();
     private UserFragment userFragment = new UserFragment();
+    private FeedFragment feedFragment = new FeedFragment();
 
     private void initUI(){
         frameLayout = findViewById(R.id.container_fragment);
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else if (id == R.id.menu_user) {
                     goToFragment(userFragment);
+                    return true;
+                } else if (id == R.id.menu_feed) {
+                    goToFragment(feedFragment);
                     return true;
                 }
                 return false;
