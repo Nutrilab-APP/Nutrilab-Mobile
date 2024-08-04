@@ -126,6 +126,7 @@
                     android:layout_height="50dp"
                     android:hint="Height"
                     android:textSize="20sp"
+                    android:inputType="number"
                     android:fontFamily="@font/nregular"
                     android:textColorHint="#2C2C2C"
                     android:textColor="@color/black"/>
@@ -148,6 +149,7 @@
                     android:id="@+id/reg_weight"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:inputType="number"
                     android:hint="Weight" />
             </LinearLayout>
 

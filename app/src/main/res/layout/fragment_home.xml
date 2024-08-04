@@ -219,11 +219,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="27dp"
+                    android:src="@drawable/calories"/>
 
                 <ProgressBar
                     android:id="@+id/pb_calories"
@@ -239,8 +246,11 @@
                     android:textAlignment="center" />
 
                 <LinearLayout
+                    android:id="@+id/calNumber"
+                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/pb_calories"
                     android:orientation="horizontal">
 
                     <TextView
@@ -266,15 +276,23 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nbold"
                     android:text="Calories"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/calNumber"
                     android:textSize="13sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="27dp"
+                    android:src="@drawable/carbohydrates"/>
                 <ProgressBar
                     android:id="@+id/pb_carbohydrates"
                     style="?android:attr/progressBarStyleHorizontal"
@@ -286,8 +304,11 @@
                     android:textAlignment="center" />
 
                 <LinearLayout
+                    android:id="@+id/carNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/pb_carbohydrates"
+                    android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
                     <TextView
@@ -311,15 +332,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nbold"
+                    android:layout_below="@id/carNumber"
+                    android:layout_centerHorizontal="true"
                     android:text="Carbohydrates"
                     android:textSize="13sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="27dp"
+                    android:src="@drawable/proteins"/>
 
                 <ProgressBar
                     android:id="@+id/pb_proteins"
@@ -332,8 +362,11 @@
                     android:textAlignment="center" />
 
                 <LinearLayout
+                    android:id="@+id/proNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/pb_proteins"
+                    android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
                     <TextView
@@ -357,15 +390,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nbold"
+                    android:layout_below="@id/proNumber"
+                    android:layout_centerHorizontal="true"
                     android:text="Proteins"
                     android:textSize="13sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="27dp"
+                    android:src="@drawable/fat"/>
 
                 <ProgressBar
                     android:id="@+id/pb_fat"
@@ -378,8 +420,11 @@
                     android:textAlignment="center" />
 
                 <LinearLayout
+                    android:id="@+id/fatNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/pb_fat"
+                    android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
                     <TextView
@@ -403,15 +448,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nbold"
+                    android:layout_below="@id/fatNumber"
+                    android:layout_centerHorizontal="true"
                     android:text="Fat"
                     android:textSize="13sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="27dp"
+                    android:src="@drawable/glucose"/>
 
                 <ProgressBar
                     android:id="@+id/pb_glucose"
@@ -424,8 +478,11 @@
                     android:textAlignment="center" />
 
                 <LinearLayout
+                    android:id="@+id/gulaNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/pb_glucose"
+                    android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
                     <TextView
@@ -448,10 +505,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/gulaNumber"
+                    android:layout_centerHorizontal="true"
                     android:fontFamily="@font/nbold"
                     android:text="Glucose"
                     android:textSize="13sp" />
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </HorizontalScrollView>
 

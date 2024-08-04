@@ -4,6 +4,7 @@ import com.example.nutrilab.model.CreateProfileRequest;
 import com.example.nutrilab.model.CreateProfileResponse;
 import com.example.nutrilab.model.EditProfileRequest;
 import com.example.nutrilab.model.EditProfileResponse;
+import com.example.nutrilab.model.FoodImageRequest;
 import com.example.nutrilab.model.FoodRecomendation;
 import com.example.nutrilab.model.FoodRequest;
 import com.example.nutrilab.model.FoodResponse;
@@ -53,4 +54,7 @@ public interface ApiService {
 
     @PATCH("/profile/{userId}")
     Call<EditProfileResponse> editProfile(@Path("userId") String userId, @Body EditProfileRequest editProfileRequest);
+
+    @POST("/food/nutrition/image")
+    Call<FoodResponse> trackFoodImage(@Body FoodImageRequest foodImageRequest);
 }

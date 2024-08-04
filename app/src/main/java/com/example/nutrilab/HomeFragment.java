@@ -1,7 +1,9 @@
 package com.example.nutrilab;
 
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -185,7 +187,16 @@ public class HomeFragment extends Fragment {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new AlertDialog.Builder(getContext())
+                        .setTitle("🔧 Fitur Sedang Dikerjakan 🔨")
+                        .setMessage("Ups! Fitur ini masih dalam tahap pembangunan. Mohon bersabar dan nantikan pembaruan berikutnya!")
+                        .setPositiveButton("Mengerti", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
             }
         });
 
