@@ -8,7 +8,7 @@
     android:background="@drawable/background"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".SplashscreenActivity">
+    tools:context=".ui.SplashscreenActivity">
 
     <ImageView
         android:layout_width="100dp"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
         android:fontFamily="@font/nbold"
-        android:text="Nutrilab 2024. All rights reserved"
+        android:text="Nutrilab 2025. All rights reserved"
         android:textColor="@color/teal_green"
         android:textSize="15sp" />
 

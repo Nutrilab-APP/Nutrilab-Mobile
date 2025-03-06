@@ -8,7 +8,7 @@
     android:background="@drawable/background5"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".HistoryFragment">
+    tools:context=".ui.HistoryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,6 +34,16 @@
             android:textSize="20sp" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/txt_history_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Belum ada histori saat ini"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:fontFamily="@font/nbold"
+        android:textSize="20sp"
+        android:visibility="gone"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/history_recyclervw"
         android:layout_marginHorizontal="8dp"

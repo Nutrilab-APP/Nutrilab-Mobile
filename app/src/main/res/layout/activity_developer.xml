@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DeveloperActivity">
+    tools:context=".ui.DeveloperActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -196,6 +196,6 @@
         android:layout_marginHorizontal="15dp"
         android:fontFamily="@font/bregular"
         android:layout_marginTop="4dp"
-        android:text="Nutrilab 2024"
+        android:text="Nutrilab 2025"
         android:textSize="20sp" />
 </LinearLayout>

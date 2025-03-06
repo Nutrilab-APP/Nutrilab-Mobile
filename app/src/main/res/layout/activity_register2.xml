@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="15dp"
     android:paddingTop="20dp"
-    tools:context=".Register2Activity"
+    tools:context=".ui.Register2Activity"
     android:gravity="center">
     <TextView
         android:layout_width="wrap_content"
@@ -188,5 +188,12 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/progressBarSign2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        style="?android:attr/progressBarStyleLarge" />
 
 </LinearLayout>
