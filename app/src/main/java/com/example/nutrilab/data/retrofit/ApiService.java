@@ -11,6 +11,7 @@ import com.example.nutrilab.data.model.FoodResponse;
 import com.example.nutrilab.data.model.HistoryResponse;
 import com.example.nutrilab.data.model.LoginRequest;
 import com.example.nutrilab.data.model.LoginResponse;
+import com.example.nutrilab.data.model.NewsResponse;
 import com.example.nutrilab.data.model.ProfileResponse;
 import com.example.nutrilab.data.model.ProgressNutritionResponse;
 import com.example.nutrilab.data.model.RegisterRequest;
@@ -55,6 +56,6 @@ public interface ApiService {
     @PATCH("/profile/{userId}")
     Call<EditProfileResponse> editProfile(@Path("userId") String userId, @Body EditProfileRequest editProfileRequest);
 
-    @POST("/food/nutrition/image")
-    Call<FoodResponse> trackFoodImage(@Body FoodImageRequest foodImageRequest);
+    @GET("/food/news")
+    Call<NewsResponse> getNews();
 }
