@@ -17,11 +17,15 @@ import com.example.nutrilab.data.model.RegisterRequest;
 import com.example.nutrilab.data.model.RegisterResponse;
 import com.example.nutrilab.data.model.TotalNutritionResponse;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -57,4 +61,11 @@ public interface ApiService {
 
     @GET("/food/news")
     Call<NewsResponse> getNews();
+
+    @Multipart
+    @POST("/food/nutrition/image")
+    Call<FoodResponse> uploadFoodImage(
+            @Part("userId")RequestBody userId,
+            @Part MultipartBody.Part image
+    );
 }

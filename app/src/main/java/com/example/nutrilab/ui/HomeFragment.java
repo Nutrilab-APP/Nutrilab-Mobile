@@ -1,11 +1,17 @@
 package com.example.nutrilab.ui;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +26,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import com.example.nutrilab.R;
 import com.example.nutrilab.data.retrofit.ApiService;
 import com.example.nutrilab.data.retrofit.RetrofitClient;
@@ -34,8 +44,15 @@ import com.example.nutrilab.data.model.TotalNutritionResponse;
 import com.example.nutrilab.pref.SharedPrefManager;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,6 +67,32 @@ public class HomeFragment extends Fragment {
     private ProgressDialog progressDialog;
     private TextView txtProgresCalorie, txtTotalCalorie, txtProgresCarbo, txtTotalCarbo, txtProgresProtein, txtTotalProtein, txtProgresFat, txtTotalFat, txtProgresSugar, txtTotalSugar, txtFullname, txtEmail, txtHeight, txtWeight, rFoodName1, rFoodName2, rFoodName3, rCalorie1, rCalorie2, rCalorie3, rCarbo1, rCarbo2, rCarbo3, rProtein1, rProtein2, rProtein3, rFat1, rFat2, rFat3, rSugar1, rSugar2, rSugar3, rInfo1, rInfo2, rInfo3;
     private ProgressBar pbCalories, pbCarbo, pbProtein, pbFat, pbSugar;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private Uri imageUri;
+    private static final int CAMERA_REQUEST_CODE = 100;
+
+    private void checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+        } else {
+            openCamera();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                Toast.makeText(requireContext(), "Izin kamera ditolak!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     private void initUI(View view) {
         btnCamera = view.findViewById(R.id.btn_camera);
@@ -94,7 +137,7 @@ public class HomeFragment extends Fragment {
         rSugar2 = view.findViewById(R.id.glucose2);
         rSugar3 = view.findViewById(R.id.glucose3);
         rInfo1 = view.findViewById(R.id.food_info1);
-        rInfo2 = view.findViewById(R.id.food_info3);
+        rInfo2 = view.findViewById(R.id.food_info2);
         rInfo3 = view.findViewById(R.id.food_info3);
         layoutRekomendasi1 = view.findViewById(R.id.layout_rekomendasi1);
         layoutRekomendasi2 = view.findViewById(R.id.layout_rekomendasi2);
@@ -111,7 +154,6 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
 
-//        btnSend on action
         btnSend.setOnClickListener(v -> {
             String food = editFood.getText().toString();
             trackFood(food);
@@ -188,21 +230,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle("🔧 Fitur Sedang Dikerjakan 🔨")
-                        .setMessage("Ups! Fitur ini masih dalam tahap pembangunan. Mohon bersabar dan nantikan pembaruan berikutnya!")
-                        .setPositiveButton("Mengerti", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
-            }
-        });
+        btnCamera.setOnClickListener(v -> checkCameraPermission());
 
 
         getProgress();
@@ -211,6 +239,104 @@ public class HomeFragment extends Fragment {
         getRecommendation();
 
         return view;
+    }
+
+    private void openCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (photoFile != null) {
+                imageUri = FileProvider.getUriForFile(requireContext(),
+                        "com.example.nutrilab.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            if (imageUri != null) {
+                uploadFoodImage(imageUri);
+            }
+        }
+    }
+
+    private void uploadFoodImage(Uri imageUri) {
+        File file = new File(imageUri.getPath());
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+        RequestBody userId = RequestBody.create(MediaType.parse("text/plain"), SharedPrefManager.getInstance(requireContext()).getUserId());
+
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<FoodResponse> call = apiService.uploadFoodImage(userId,body);
+
+        call.enqueue(new Callback<FoodResponse>() {
+            @Override
+            public void onResponse(Call<FoodResponse> call, Response<FoodResponse> response) {
+
+                if (response.isSuccessful() && response.body() != null) {
+                    FoodResponse.FoodData foodData = response.body().getData();
+                    if (foodData != null) {
+                        FoodResponse.FoodData.FoodInfo foodInfo = foodData.getFoodInfo();
+                        FoodResponse.FoodData.ProgressNutrition progressNutrition = foodData.getProgressNutrition();
+
+                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                        intent.putExtra("foodName", foodInfo.getFoodName());
+                        intent.putExtra("foodInformation", foodInfo.getFoodInformation());
+                        intent.putExtra("calorie", foodInfo.getCalorie());
+                        intent.putExtra("sugar", foodInfo.getSugar());
+                        intent.putExtra("carbohydrate", foodInfo.getCarbohydrate());
+                        intent.putExtra("fat", foodInfo.getFat());
+                        intent.putExtra("protein", foodInfo.getProtein());
+
+                        intent.putExtra("totalCalories", progressNutrition.getTotalCalories());
+                        intent.putExtra("totalCarbohydrate", progressNutrition.getTotalCarbohydrate());
+                        intent.putExtra("totalProtein", progressNutrition.getTotalProtein());
+                        intent.putExtra("totalFat", progressNutrition.getTotalFat());
+                        intent.putExtra("totalSugar", progressNutrition.getTotalSugar());
+
+                        startActivity(intent);
+                    } else {
+                        try {
+                            String errorMessage = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
+                            Toast.makeText(getActivity(), "Error: " + errorMessage, Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            Toast.makeText(getActivity(), "Failed to retrieve food information", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FoodResponse> call, Throwable t) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Gagal mengidentifikasi makanan")
+                        .setMessage("Terjadi kesalahan saat mengidentifikasi makanan. Pastikan kamu memasukkan gambar makanan yang benar.")
+                        .setPositiveButton("Oke", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+    }
+
+    private File createImageFile() throws IOException{
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 
     private void getRecommendation() {
