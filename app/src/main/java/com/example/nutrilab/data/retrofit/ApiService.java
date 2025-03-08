@@ -4,7 +4,6 @@ import com.example.nutrilab.data.model.CreateProfileRequest;
 import com.example.nutrilab.data.model.CreateProfileResponse;
 import com.example.nutrilab.data.model.EditProfileRequest;
 import com.example.nutrilab.data.model.EditProfileResponse;
-import com.example.nutrilab.data.model.FoodImageRequest;
 import com.example.nutrilab.data.model.FoodRecomendation;
 import com.example.nutrilab.data.model.FoodRequest;
 import com.example.nutrilab.data.model.FoodResponse;
